@@ -21,7 +21,7 @@ void ConsistentHashImpl::addServer(const string& aServerName)
 
 void ConsistentHashImpl::removeServer(int aServerIndex)
 {
-	_serverList.erase(&_serverList.at(aServerIndex));
+	_serverList.erase(_serverList.begin()+aServerIndex);
 	updateContinuum();
 }
 
@@ -51,7 +51,6 @@ size_t ConsistentHashImpl::GenerateHash(const std::string& aKey, size_t aSize, C
 	switch(aHashAlgo)
 	{
 	case ConsistentHash::FNV64: // in 64 bits
-		/*
 		value = 0xcbf29ce484222325LL; 
 		for(size_t i=0;i<aSize;++i)
 		{
@@ -59,7 +58,6 @@ size_t ConsistentHashImpl::GenerateHash(const std::string& aKey, size_t aSize, C
 			value *= 0x100000001b3LL;
 		}
 		break;
-		*/
 	case ConsistentHash::FNV32:
 		value = 2166136261UL; // 0xcbf29ce484222325LL in 64 bits
 		for(size_t i=0;i<aSize;++i)
